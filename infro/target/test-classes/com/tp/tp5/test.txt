@@ -1,0 +1,18 @@
+Les fonctionnalités à tester sont :
+
+1- Rechercher une voiture par marque :
+
+- Vérifier si la recherche par marque fonctionne correctement.
+- Tester un cas où la marque n'existe pas.
+- Tester un cas où plusieurs voitures existent pour la même marque.
+
+2- Rechercher une voiture par ID :
+
+- Vérifier si la recherche avec un ID valide renvoie le bon modèle.
+- Tester un cas où l'ID génère une exception TooMuchResultException.
+
+3- Enregistrer un modèle de voiture :
+
+- Tester l'insertion avec un modèle sans ID.
+- Tester la mise à jour avec un modèle ayant un ID existant.
+- Tester un cas où la persistance échoue avec ErreurPersistance.

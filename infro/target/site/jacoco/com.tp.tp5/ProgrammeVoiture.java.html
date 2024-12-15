@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProgrammeVoiture.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">infro</a> &gt; <a href="index.source.html" class="el_package">com.tp.tp5</a> &gt; <span class="el_source">ProgrammeVoiture.java</span></div><h1>ProgrammeVoiture.java</h1><pre class="source lang-java linenums">package com.tp.tp5;
+
+import java.util.List;
+
+import com.tp.tp5.exception.ErreurPersistance;
+import com.tp.tp5.exception.TooMuchResultException;
+
+<span class="nc" id="L8">public class ProgrammeVoiture{ </span>
+    // Objet persistance qui sera lié par le principe d'injection de dépendances 
+    private IPersistanceModeleVoiture persistance; 
+  
+    /** Méthodes à tester */ 
+  
+    /** 
+     * Rechercher une liste de modèles en fonction de la marque 
+     * @param String marque 
+     * @return List&lt;ModeleVoiture&gt; tous les modèles en base appartenant à cette marque 
+     */ 
+    public List&lt;ModeleVoiture&gt; rechercherVoitureParMarque(String marque){ 
+<span class="nc" id="L20">        CritereRerchercheModeleVoiture citere = new CritereRerchercheModeleVoiture(); </span>
+<span class="nc" id="L21">        citere.setMarqueModele(marque); </span>
+<span class="nc" id="L22">        return persistance.searchModeleVoiture(citere); </span>
+    } 
+  
+    /** 
+     * Rechercher un modèle de voiture via son id en base 
+     * @param Long id 
+     * @return ModeleVoiture résultat correspondant à la recherche 
+     */ 
+    public ModeleVoiture rechercherVoitureParId(Long id){ 
+        try { 
+<span class="nc" id="L32">            return persistance.searchModeleVoitureById(id); </span>
+<span class="nc" id="L33">        } catch (TooMuchResultException e){ </span>
+<span class="nc" id="L34">            System.out.println(&quot;Trop de résultats avec le même id, revoyez la structure de votre table !&quot;); </span>
+<span class="nc" id="L35">            return null; </span>
+        } 
+    } 
+  
+    /** 
+     * Enregistrer un modèle valorisé à partir d'un formulaire de création/modification 
+     * Doit mettre à jour en base le modèle ou l'ajouter dans le cas ou il n'existe pas 
+     * @param ModeleVoiture modele 
+     */ 
+    public boolean enregisterModeleVoiture(ModeleVoiture modele){ 
+        try{ 
+<span class="nc bnc" id="L46" title="All 2 branches missed.">            if (null != modele.getId()){ </span>
+<span class="nc" id="L47">                persistance.updateModeleVoiture(modele); </span>
+            } else { 
+<span class="nc" id="L49">                persistance.addModeleVoiture(modele); </span>
+            } 
+<span class="nc" id="L51">            return true;</span>
+<span class="nc" id="L52">        } catch (ErreurPersistance e){ </span>
+<span class="nc" id="L53">            System.out.println (&quot;Erreur : &quot; + e.getMessage()); </span>
+<span class="nc" id="L54">            return false;</span>
+        } 
+    } 
+  
+    /** Getters et setters */ 
+    public IPersistanceModeleVoiture getPersistance() { 
+<span class="nc" id="L60">        return persistance; </span>
+    } 
+  
+    public void setPersistance(IPersistanceModeleVoiture persistance) { 
+<span class="nc" id="L64">        this.persistance = persistance; </span>
+<span class="nc" id="L65">    } </span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
